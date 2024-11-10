@@ -1,17 +1,14 @@
-namespace SpriteKind {
-    export const Button = SpriteKind.create()
-}
-
-function Convertir_Celsius(num: number) {
-    
+@namespace
+class SpriteKind:
+    Button = SpriteKind.create()
+def Convertir_Celsius(num: number):
+    global temp
     temp = tempC * (9 / 5) + 32
-    game.splash("Temperatura F = " + ("" + ("" + Math.round(temp))))
-}
-
-function Level_Controler() {
-    
-    if (Level == 0) {
-        scene.setBackgroundImage(img`
+    game.splash("Temperatura F = " + ("" + str(Math.round(temp))))
+def Level_Controler():
+    global Grade_F, Grade_C, Flecha, tempC, tempF
+    if Level == 0:
+        scene.set_background_image(img("""
             8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
                         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
                         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
@@ -132,8 +129,8 @@ function Level_Controler() {
                         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
                         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
                         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-        `)
-        Grade_F = sprites.create(img`
+        """))
+        Grade_F = sprites.create(img("""
                 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
                             1 1 f f 1 1 1 1 1 1 1 1 1 1 1 1 
                             1 f 1 1 f 1 f f f f f f f f 1 1 
@@ -150,8 +147,9 @@ function Level_Controler() {
                             1 1 1 1 1 1 f 1 1 1 1 1 1 1 1 1 
                             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
                             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-            `, SpriteKind.Button)
-        Grade_C = sprites.create(img`
+            """),
+            SpriteKind.Button)
+        Grade_C = sprites.create(img("""
                 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
                             1 1 f f 1 1 1 f f f f f f 1 1 1 
                             1 f 1 1 f 1 f f 1 1 1 1 1 1 1 1 
@@ -168,8 +166,9 @@ function Level_Controler() {
                             1 1 1 1 1 1 f f 1 1 1 1 1 1 1 1 
                             1 1 1 1 1 1 1 f f f f f f 1 1 1 
                             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-            `, SpriteKind.Button)
-        Flecha = sprites.create(img`
+            """),
+            SpriteKind.Button)
+        Flecha = sprites.create(img("""
                 . . . . . . . . . . . . . . . . 
                             . . . . . . . . . . . . . . . . 
                             . . . . . . . . . . . . . . . . 
@@ -186,15 +185,16 @@ function Level_Controler() {
                             . . . . . . . . . . . . . . . . 
                             . . . . . . . . . . . . . . . . 
                             . . . . . . . . . . . . . . . .
-            `, SpriteKind.Player)
-        Grade_F.setPosition(40, 80)
-        Grade_C.setPosition(120, 80)
-        controller.moveSprite(Flecha)
-    } else if (Level == 1) {
+            """),
+            SpriteKind.player)
+        Grade_F.set_position(40, 80)
+        Grade_C.set_position(120, 80)
+        controller.move_sprite(Flecha)
+    elif Level == 1:
         sprites.destroy(Grade_C)
         sprites.destroy(Grade_F)
         sprites.destroy(Flecha)
-        scene.setBackgroundImage(img`
+        scene.set_background_image(img("""
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -315,14 +315,14 @@ function Level_Controler() {
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        `)
-        tempC = game.askForNumber("Pon la temperatura en grados Celsius:")
+        """))
+        tempC = game.ask_for_number("Pon la temperatura en grados Celsius:")
         Convertir_Celsius(tempC)
-    } else if (Level == 2) {
+    elif Level == 2:
         sprites.destroy(Grade_C)
         sprites.destroy(Grade_F)
         sprites.destroy(Flecha)
-        scene.setBackgroundImage(img`
+        scene.set_background_image(img("""
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -443,36 +443,30 @@ function Level_Controler() {
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        `)
-        tempF = game.askForNumber("Pon la temperatura en grados Fahrenheit:")
+        """))
+        tempF = game.ask_for_number("Pon la temperatura en grados Fahrenheit:")
         Convertir_Fahrenheit(tempF)
-    }
-    
-}
 
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Button, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
-    
-    if (otherSprite == Grade_F && controller.A.isPressed()) {
+def on_on_overlap(sprite, otherSprite):
+    global Level
+    if otherSprite == Grade_F and controller.A.is_pressed():
         Level = 1
         Level_Controler()
-    } else if (otherSprite == Grade_C && controller.A.isPressed()) {
+    elif otherSprite == Grade_C and controller.A.is_pressed():
         Level = 2
         Level_Controler()
-    }
-    
-})
-function Convertir_Fahrenheit(num2: number) {
-    
-    temp = (tempF - 32) * (5 / 9)
-    game.splash("Temperatura C = " + ("" + ("" + Math.round(temp))))
-}
+sprites.on_overlap(SpriteKind.player, SpriteKind.Button, on_on_overlap)
 
-let tempF = 0
-let Flecha : Sprite = null
-let Grade_C : Sprite = null
-let Grade_F : Sprite = null
-let tempC = 0
-let temp = 0
-let Level = 0
+def Convertir_Fahrenheit(num2: number):
+    global temp
+    temp = (tempF - 32) * (5 / 9)
+    game.splash("Temperatura C = " + ("" + str(Math.round(temp))))
+tempF = 0
+Flecha: Sprite = None
+Grade_C: Sprite = None
+Grade_F: Sprite = None
+tempC = 0
+temp = 0
+Level = 0
 Level = 0
 Level_Controler()
