@@ -1,12 +1,12 @@
 @namespace
 class SpriteKind:
     Button = SpriteKind.create()
-def Convertir_Celsius(num: number):
+def Convertir_Celsius(num2: number):
     global temp
-    temp = tempC * (9 / 5) + 32
-    game.splash("Temperatura F = " + ("" + str(Math.round(temp))))
+    temp = (tempF - 32) * (5 / 9)
+    game.splash("Temperatura C = " + ("" + str(Rondear(temp))))
 def Level_Controler():
-    global Grade_F, Grade_C, Flecha, tempC, tempF
+    global Grade_F, Grade_C, Flecha, tempC, Level, tempF
     if Level == 0:
         scene.set_background_image(img("""
             8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
@@ -187,13 +187,11 @@ def Level_Controler():
                             . . . . . . . . . . . . . . . .
             """),
             SpriteKind.player)
+        Flecha.set_bounce_on_wall(True)
         Grade_F.set_position(40, 80)
         Grade_C.set_position(120, 80)
         controller.move_sprite(Flecha)
     elif Level == 1:
-        sprites.destroy(Grade_C)
-        sprites.destroy(Grade_F)
-        sprites.destroy(Flecha)
         scene.set_background_image(img("""
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -316,12 +314,14 @@ def Level_Controler():
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         """))
+        sprites.destroy(Grade_C)
+        sprites.destroy(Grade_F)
+        sprites.destroy(Flecha)
         tempC = game.ask_for_number("Pon la temperatura en grados Celsius:")
-        Convertir_Celsius(tempC)
+        Convertir_Fahrenheit(tempC)
+        Level = 0
+        Level_Controler()
     elif Level == 2:
-        sprites.destroy(Grade_C)
-        sprites.destroy(Grade_F)
-        sprites.destroy(Flecha)
         scene.set_background_image(img("""
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -444,8 +444,15 @@ def Level_Controler():
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         """))
+        sprites.destroy(Grade_C)
+        sprites.destroy(Grade_F)
+        sprites.destroy(Flecha)
         tempF = game.ask_for_number("Pon la temperatura en grados Fahrenheit:")
-        Convertir_Fahrenheit(tempF)
+        Convertir_Celsius(tempF)
+        Level = 0
+        Level_Controler()
+def Rondear(num: number):
+    return Math.floor(num * 100) / 100
 
 def on_on_overlap(sprite, otherSprite):
     global Level
@@ -457,16 +464,15 @@ def on_on_overlap(sprite, otherSprite):
         Level_Controler()
 sprites.on_overlap(SpriteKind.player, SpriteKind.Button, on_on_overlap)
 
-def Convertir_Fahrenheit(num2: number):
+def Convertir_Fahrenheit(num3: number):
     global temp
-    temp = (tempF - 32) * (5 / 9)
-    game.splash("Temperatura C = " + ("" + str(Math.round(temp))))
-tempF = 0
+    temp = tempC * (9 / 5) + 32
+    game.splash("Temperatura F = " + ("" + str(Rondear(temp))))
+tempC = 0
 Flecha: Sprite = None
 Grade_C: Sprite = None
 Grade_F: Sprite = None
-tempC = 0
+Level = 0
+tempF = 0
 temp = 0
-Level = 0
-Level = 0
 Level_Controler()
